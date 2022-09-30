@@ -1,10 +1,16 @@
 package vttp2022.assessment.csf.orderbackend.models;
 
+import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 
-// IMPORTANT: You can add to this class, but you cannot delete its original content
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+import lombok.Data;
 
+// IMPORTANT: You can add to this class, but you cannot delete its original content
+@Data
 public class Order {
 
 	private Integer orderId;
@@ -40,4 +46,35 @@ public class Order {
 
 	public void setComments(String comments) { this.comments = comments; }
 	public String getComments() { return this.comments; }
+
+	public static Order create(String json) {	
+
+		JsonReader reader = Json.createReader(new StringReader(json));
+		JsonObject data = reader.readObject();
+
+		Order order = new Order();
+		order.setOrderId(data.getInt("order_id"));
+		order.setName(data.getString("name"));
+		order.setEmail(data.getString("email"));
+		order.setSize(data.getInt("pizza_size"));
+		order.setThickCrust(data.getBoolean("thick_crust"));
+		order.setSauce(data.getString("sauce"));
+		// order.setToppings(data.getString("toppings"));
+		order.setComments(data.getString("comments"));
+		return order;
+	}
+
+	public JsonObject toJson() {
+		return Json.createObjectBuilder()
+			.add("order_id", orderId)
+			.add("name", name)
+			.add("email", email)
+			.add("pizza_size", size)
+			.add("thick_crust", thickCrust)
+			.add("sauce", sauce)
+			// .add("toppings", toppings)
+			.add("comments", comments)
+			.build();
+	}
+
 }

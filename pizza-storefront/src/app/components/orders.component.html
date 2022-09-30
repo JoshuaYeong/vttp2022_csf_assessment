@@ -1,0 +1,18 @@
+<div>
+  <table *ngFor="let i of _orders; let idx = index">
+    <code>{{ i.email }}</code>
+    <tbody>
+      <div>
+        <tr>
+          <td>{{ i.orderId }}</td>
+        </tr>
+        <tr>
+          <td>{{ i.price }}</td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+  <div>
+    <button type="button" [routerLink]="[ '/' ]">Go to Homepage</button>
+  </div>
+</div>

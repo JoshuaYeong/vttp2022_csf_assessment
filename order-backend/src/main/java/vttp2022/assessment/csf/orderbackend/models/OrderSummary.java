@@ -1,7 +1,11 @@
 package vttp2022.assessment.csf.orderbackend.models;
 
-// IMPORTANT: You can add to this class, but you cannot delete its original content
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import lombok.Data;
+
+// IMPORTANT: You can add to this class, but you cannot delete its original content
+@Data
 public class OrderSummary {
 	private Integer orderId;
 	private String name;
@@ -19,5 +23,13 @@ public class OrderSummary {
 
 	public void setAmount(Float amount) { this.amount = amount; }
 	public Float getAmount() { return this.amount; }
+
+	public static OrderSummary create(SqlRowSet rs) {
+		OrderSummary orderSummary = new OrderSummary();
+		orderSummary.setOrderId(rs.getInt("order_id"));
+		orderSummary.setName(rs.getString("name"));
+		orderSummary.setEmail(rs.getString("email"));
+		return orderSummary;
+	}
 
 }
