@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Pizza } from '../models';
@@ -37,12 +37,12 @@ export class MainComponent implements OnInit {
 
   createForm(): FormGroup {
     return this.fb.group({
-      name: this.fb.control<string>(''),
-      email: this.fb.control<string>(''),
-      size: this.fb.control<number>(0),
-      base: this.fb.control<string>(''),
-      sauce: this.fb.control<string>(''),
-      toppings: this.fb.array([this.fb.control<string>('')]),
+      name: this.fb.control<string>('', [Validators.required]),
+      email: this.fb.control<string>('', [Validators.required]),
+      size: this.fb.control<number>(0, [Validators.required]),
+      base: this.fb.control<string>('', [Validators.required]),
+      sauce: this.fb.control<string>('', [Validators.required]),
+      toppings: this.fb.array([this.fb.control<string>('', [Validators.required])]),
       comments: this.fb.control<string>('')
     })
   }
